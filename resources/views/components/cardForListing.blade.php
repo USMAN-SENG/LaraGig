@@ -7,9 +7,18 @@
 <div class="col-sm-6 col-lg-4 col-xl-3">
   <div class="card h-100 p-1" style="width: 18rem;">
     <a href="/listings/{{ $list_ID }}" target="_blank">
-      <img
-        src="{{ $img ? asset('storage/' . $img) : 'https://t3.ftcdn.net/jpg/02/95/94/94/360_F_295949484_8BrlWkTrPXTYzgMn3UebDl1O13PcVNMU.jpg' }}"
-        class="card-img-top" alt="..." height="250">
+      @if ($img)
+
+        @if (str_contains($img, 'logos'))
+          <img src="{{ asset('storage/' . $img) }}" class="card-img-top" alt="..." height="250">
+        @else
+          <img src="{{ $img }}" class="card-img-top" alt="..." height="250">
+        @endif
+      @else
+        <img src="https://t3.ftcdn.net/jpg/02/95/94/94/360_F_295949484_8BrlWkTrPXTYzgMn3UebDl1O13PcVNMU.jpg"
+          class="card-img-top" alt="..." height="250">
+
+      @endif
     </a>
 
     <div class="card-body">

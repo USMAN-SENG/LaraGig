@@ -18,7 +18,7 @@ class ListingsController extends Controller
       // Show all listings
     public function index()
     {
-        return view('listings.index', ['listings' => Listings::latest()->filter(request(['tag','search']))->paginate(8)]); //latest() will order by create_at .
+        return view('listings.index', ['listings' => Listings::latest('updated_at')->filter(request(['tag','search']))->paginate(8)]); //latest() will order by create_at .
         // filter() will let us use scopeFilter in model. we sending tag as one of the element in the array
     }
 
@@ -56,12 +56,12 @@ class ListingsController extends Controller
         ]);
 
         if($request->hasFile('logo')) {
-            $formFields['logo'] = $request->file('logo')->store('logos', 'public');
+            $formFields['logo'] = $request->file('logo')->store('logos', 'public'); // logos is the name of a folder
         }
 
         Listings::create($formFields);
 
-        return redirect('/listings')->with('msg','You sucessfully posted a job');
+        return redirect('/listings')->with('msg','You sucessfully updated a job');
     }
 
     /**
@@ -85,7 +85,7 @@ class ListingsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('listings.edit', ['list' => Listings::findOrFail($id)]);
     }
 
     /**
@@ -97,7 +97,25 @@ class ListingsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request->all());
+        $formFields= $request->validate([
+            'title'=>'required|min:6',
+            'company'=>'required|min:6',
+            'location'=>'required',
+            'email'=>'required|email',
+            'website'=>'required',
+            'tags'=>'required',
+            'description'=>'required',
+        ]);
+
+        if($request->hasFile('logo')) {
+            $formFields['logo'] = $request->file('logo')->store('logos', 'public'); // logos is the name of a folder
+        }
+
+        Listings::where('id',$id)->update($formFields) ;
+        // Listings::create($formFields);
+
+        return redirect('/listings')->with('msg','You sucessfully posted a job');
     }
 
     /**

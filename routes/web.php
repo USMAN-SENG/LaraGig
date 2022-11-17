@@ -41,8 +41,12 @@ Route::get('/listings/create', [ListingsController::class, 'create']);
 
 Route::post('/listings', [ListingsController::class, 'store']);
 
+Route::get('/listings/{id}/edit', [ListingsController::class, 'edit'])->where('id', '[0-9]+');
+
 
 Route::get('/listings/{id}', [ListingsController::class, 'show'])->where('id', '[0-9]+');
+
+Route::patch('/listings/{id}', [ListingsController::class, 'update'])->where('id', '[0-9]+');
 
 
 Route::get('/{non}', function () {

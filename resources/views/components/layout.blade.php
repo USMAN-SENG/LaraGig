@@ -31,8 +31,8 @@
 </head>
 
 <body class="">
-  <div class="d-flex flex-wrap mb-2 mt-1">
-    <div class="flex-fill ms-2"><a href="http://"><img
+  <div class="d-flex flex-wrap m-2">
+    <div class="flex-fill"><a href="http://"><img
           src="https://uxwing.com/wp-content/themes/uxwing/download/business-professional-services/job-icon.png"
           alt="jobs" width="45" height="45"></a></div>
     <div>
