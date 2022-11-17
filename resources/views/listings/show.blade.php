@@ -45,7 +45,13 @@
     <a href="/listings/{{ $list->id }}/edit" target="_self" class="link-dark"><i class="bi bi-pencil-fill">
         Edit</i></a>
 
-    <a href="/listings" target="_self" class="link-dark"><i class="bi bi-trash3-fill"> Delete</i></a>
+    <form action="/listings/{{ $list->id }}" method="POST">
+      @csrf
+      @method("DELETE")
+      <button type="submit" class="border-0 bg-transparent"><i class="bi bi-trash3-fill"> Delete</i></button>
+      {{-- <a href="/listings" target="_self" class="link-dark"><i class="bi bi-trash3-fill"> Delete</i></a> --}}
+    </form>
+
   </div>
 
 

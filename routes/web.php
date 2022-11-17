@@ -48,6 +48,8 @@ Route::get('/listings/{id}', [ListingsController::class, 'show'])->where('id', '
 
 Route::patch('/listings/{id}', [ListingsController::class, 'update'])->where('id', '[0-9]+');
 
+Route::delete('/listings/{id}', [ListingsController::class, 'destroy'])->where('id', '[0-9]+');
+
 
 Route::get('/{non}', function () {
     return redirect('/');

@@ -126,6 +126,8 @@ class ListingsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Listings::destroy($id);
+
+        return redirect('/listings')->with('msg','You sucessfully deleted a job/post with ID:' .$id );
     }
 }
