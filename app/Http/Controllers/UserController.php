@@ -37,9 +37,9 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $formFields= $request->validate([
-            'name'=>'required|min:6',        
+            'name'=>'required|min:6',       
             'email'=>'required|unique:users,email,except,id|email',
-            'password'=>'required|confirmed',
+            'password'=>'required|confirmed|min:6',
         ]);
 
         //Hash password

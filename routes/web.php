@@ -67,7 +67,7 @@ Route::delete('/listings/{id}', [ListingsController::class, 'destroy'])->where('
 
 Route::get('/register', [UserController::class, 'create']);
 
-Route::post('/users', [ListingsController::class, 'store']);
+Route::post('/users', [UserController::class, 'store']);
 
 
 Route::get('/{non}', function () {
