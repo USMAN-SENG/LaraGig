@@ -65,9 +65,14 @@ Route::delete('/listings/{id}', [ListingsController::class, 'destroy'])->where('
 
 //////////////////////Users
 
+// show a form
 Route::get('/register', [UserController::class, 'create']);
 
+// create new user
 Route::post('/users', [UserController::class, 'store']);
+
+// logout user
+Route::post('/logout', [UserController::class, 'logout']);
 
 
 Route::get('/{non}', function () {

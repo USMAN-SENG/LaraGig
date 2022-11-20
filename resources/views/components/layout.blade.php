@@ -17,36 +17,59 @@
       /* margin: 4px; */
     }
 
-    a:link {text-decoration:none}
+    a:link {
+      text-decoration: none
+    }
 
     img {
-    /* width: 200px;  
+      /* width: 200px;
     height: 200px; */
-    object-fit: cover;
-}
-
+      object-fit: cover;
+    }
   </style>
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <title>{{ $title ?? 'Home' }}</title>
 </head>
 
 <body class="">
-  <div class="d-flex flex-wrap m-2">
+  <div class="d-flex flex-wrap m-2 gap-3">
     <div class="flex-fill"><a href="http://"><img
           src="https://uxwing.com/wp-content/themes/uxwing/download/business-professional-services/job-icon.png"
           alt="jobs" width="45" height="45"></a></div>
-    <div>
-      <a href="" class="btn btn-outline-secondary">
-        <i class="bi bi-person-fill"></i> Regiter
-      </a>
+    @auth
+      <div>
+        <b>{{ auth()->user()->name }}</b>
+        <img
+          src="https://w7.pngwing.com/pngs/502/150/png-transparent-havanese-dog-pet-sitting-labrador-retriever-puppy-cat-pet-dog-animals-carnivoran-pet-thumbnail.png"
+          class="rounded-circle" alt="..." width="45" height="45">
+      </div>
+      <div class="d-flex align-items-center">
+        <a href="" class="link-dark">
+          <i class="bi bi-gear-fill"></i> Manage Listings
+        </a>
+      </div>
+      <div>
+        <form action="/logout" method="POST">
+          @csrf
+          <button type="submit" class="btn btn-outline-secondary"><i class="bi bi-door-open-fill"></i> Logout</button>
+        </form>
+      </div>
+    @endauth
+    @guest
+      <div>
+        <a href="/register" class="btn btn-outline-secondary">
+          <i class="bi bi-person-fill"></i> Regiter
+        </a>
+      </div>
+      <div>
+        <a href="" class="btn btn-outline-secondary">
+          <i class="bi bi-box-arrow-right"></i> Login
+        </a>
+      </div>
     </div>
-    <div>
-      <a href="" class="btn btn-outline-secondary">
-        <i class="bi bi-box-arrow-right"></i> Login
-      </a>
-    </div>
-  </div>
-  
+  @endguest
+
+
   <main>
     {{ $slot }}
   </main>

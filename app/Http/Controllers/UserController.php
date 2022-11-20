@@ -36,18 +36,34 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $formFields= $request->validate([
-            'name'=>'required|min:6',       
-            'email'=>'required|unique:users,email,except,id|email',
-            'password'=>'required|confirmed|min:6',
+        $formFields = $request->validate([
+            'name' => 'required|min:6',
+            'email' => 'required|unique:users,email,except,id|email',
+            'password' => 'required|confirmed|min:6',
         ]);
 
         //Hash password
-        $formFields['password']= bcrypt($formFields['password']) ;
+        $formFields['password'] = bcrypt($formFields['password']);
 
-        User::create($formFields);
+        //create user
+        $user = User::create($formFields);
 
-        return redirect('/listings')->with('msg','You created an account');
+        // after regiter , we automatically log in the user
+        auth()->login($user);
+
+        return redirect('/listings')->with('msg', 'You Are Login');
+    }
+
+
+    public function logout(Request $request)
+    {
+        auth()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/listings')->with('msg', 'You Are Logout');
     }
 
     /**
