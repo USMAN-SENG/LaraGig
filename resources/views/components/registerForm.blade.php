@@ -43,5 +43,5 @@
   <button type="submit" class="btn btn-danger">Sign Up</button>
   <br>
   <br>
-  <p>Already Have An Account? <span><a href="">Log in</a></span></p>
+  <p>Already Have An Account? <span><a href="/login">Log in</a></span></p>
 </form>

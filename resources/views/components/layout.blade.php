@@ -44,7 +44,7 @@
           class="rounded-circle" alt="..." width="45" height="45">
       </div>
       <div class="d-flex align-items-center">
-        <a href="" class="link-dark">
+        <a href="/listings/manage" class="link-dark">
           <i class="bi bi-gear-fill"></i> Manage Listings
         </a>
       </div>
@@ -62,12 +62,13 @@
         </a>
       </div>
       <div>
-        <a href="" class="btn btn-outline-secondary">
+        <a href="/login" class="btn btn-outline-secondary">
           <i class="bi bi-box-arrow-right"></i> Login
         </a>
       </div>
-    </div>
-  @endguest
+    @endguest
+  </div>
+
 
 
   <main>

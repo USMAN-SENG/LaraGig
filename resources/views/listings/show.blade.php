@@ -41,18 +41,24 @@
   </x-shadowBox>
   <br>
 
-  <div class="d-flex justify-content-between  mx-5 text-black">
-    <a href="/listings/{{ $list->id }}/edit" target="_self" class="link-dark"><i class="bi bi-pencil-fill">
-        Edit</i></a>
+  @auth
+    @if (auth()->user()->id == $list->user_id)
+      <div class="d-flex justify-content-between  mx-5 text-black">
+        <a href="/listings/{{ $list->id }}/edit" target="_self" class="link-dark"><i class="bi bi-pencil-fill">
+            Edit</i></a>
 
-    <form action="/listings/{{ $list->id }}" method="POST">
-      @csrf
-      @method("DELETE")
-      <button type="submit" class="border-0 bg-transparent"><i class="bi bi-trash3-fill"> Delete</i></button>
-      {{-- <a href="/listings" target="_self" class="link-dark"><i class="bi bi-trash3-fill"> Delete</i></a> --}}
-    </form>
+        <form action="/listings/{{ $list->id }}" method="POST">
+          @csrf
+          @method('DELETE')
+          <button type="submit" class="border-0 bg-transparent"><i class="bi bi-trash3-fill"> Delete</i></button>
+          {{-- <a href="/listings" target="_self" class="link-dark"><i class="bi bi-trash3-fill"> Delete</i></a> --}}
+        </form>
 
-  </div>
+      </div>
+    @endif
+  @endauth
+
+
 
 
   <br>

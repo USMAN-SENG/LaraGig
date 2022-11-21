@@ -23,6 +23,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //register form
     public function create()
     {
         return view('users.create');
@@ -34,6 +35,8 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+     // store new users
     public function store(Request $request)
     {
         $formFields = $request->validate([
@@ -54,7 +57,7 @@ class UserController extends Controller
         return redirect('/listings')->with('msg', 'You Are Login');
     }
 
-
+    //logout the user
     public function logout(Request $request)
     {
         auth()->logout();
@@ -64,6 +67,31 @@ class UserController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/listings')->with('msg', 'You Are Logout');
+    }
+
+    //show login form to the user
+    public function login(){
+
+        return view('users.login');
+    }
+
+    //check login info  
+    public function authenticate(Request $request){
+
+        $formFields = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if(auth()->attempt($formFields)){
+            $request->session()->regenerate();
+            return redirect('/listings')->with('msg', 'You Are Login');
+        }
+
+        return back()->withErrors([
+            'email' => 'Invalid credentials '
+        ])->onlyInput('email');
+
     }
 
     /**

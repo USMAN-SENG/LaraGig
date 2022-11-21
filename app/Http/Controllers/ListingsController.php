@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Listings;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Termwind\Components\Dd;
 
@@ -59,6 +60,8 @@ class ListingsController extends Controller
             $formFields['logo'] = $request->file('logo')->store('logos', 'public'); // logos is the name of a folder
         }
 
+        $formFields['user_id']= auth()->id();
+
         Listings::create($formFields);
 
         return redirect('/listings')->with('msg','You sucessfully updated a job');
@@ -97,6 +100,10 @@ class ListingsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //make sure login user is owner
+        if(Listings::findOrFail($id)->user_id != auth()->id()){
+            abort(403,'unauthrize action');
+        }
         // dd($request->all());
         $formFields= $request->validate([
             'title'=>'required|min:6',
@@ -125,9 +132,18 @@ class ListingsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   
+        //make sure login user is owner
+        if(Listings::findOrFail($id)->user_id != auth()->id()){
+            abort(403,'unauthrize action');
+        }
         Listings::destroy($id);
 
         return redirect('/listings')->with('msg','You sucessfully deleted a job/post with ID:' .$id );
+    }
+
+    public function manage(){
+
+        return view('listings.manage',['listings' => auth()->user()->listings]);
     }
 }

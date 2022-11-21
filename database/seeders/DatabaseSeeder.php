@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Listings;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -27,7 +28,15 @@ class DatabaseSeeder extends Seeder
         // $this->call(PostSeeder::class);
         //Post::factory(20)->create();
 
-        Listings::factory(25)->create();
+        $user= User::factory()->create([
+            'name'=>'john dow',
+            'email'=>'john@gmail.com',
+            'password'=>'123456',
+        ]);
+
+        Listings::factory(12)->create([
+            'user_id'=>$user->id
+        ]);
 
     }
 }

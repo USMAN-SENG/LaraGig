@@ -46,33 +46,48 @@ Route::get('/layout', function () {
 });
 
 //////////////////// Listings
+
+// All Listings
 Route::get('/listings', [ListingsController::class, 'index']);
 
-Route::get('/listings/create', [ListingsController::class, 'create']);
+// Show Create Form
+Route::get('/listings/create', [ListingsController::class, 'create'])->middleware('auth');
 
-Route::post('/listings', [ListingsController::class, 'store']);
+// Store Listing Data
+Route::post('/listings', [ListingsController::class, 'store'])->middleware('auth');
 
-Route::get('/listings/{id}/edit', [ListingsController::class, 'edit'])->where('id', '[0-9]+');
+// Show Edit Form
+Route::get('/listings/{id}/edit', [ListingsController::class, 'edit'])->where('id', '[0-9]+')->middleware('auth');
 
-
+// Single Listing
 Route::get('/listings/{id}', [ListingsController::class, 'show'])->where('id', '[0-9]+');
 
-Route::patch('/listings/{id}', [ListingsController::class, 'update'])->where('id', '[0-9]+');
+// Update Listing
+Route::patch('/listings/{id}', [ListingsController::class, 'update'])->where('id', '[0-9]+')->middleware('auth');
 
-Route::delete('/listings/{id}', [ListingsController::class, 'destroy'])->where('id', '[0-9]+');
+// Delete Listing
+Route::delete('/listings/{id}', [ListingsController::class, 'destroy'])->where('id', '[0-9]+')->middleware('auth');
 
+// Manage Listings , show the posts user made
+Route::get('/listings/manage', [ListingsController::class, 'manage'])->middleware('auth');
 //////////////////
 
 //////////////////////Users
 
-// show a form
-Route::get('/register', [UserController::class, 'create']);
+// show a Register form
+Route::get('/register', [UserController::class, 'create'])->middleware('guest'); // for guest middleware , we need to check if our Home route in Providers/RouteServiseProvider
 
 // create new user
 Route::post('/users', [UserController::class, 'store']);
 
 // logout user
-Route::post('/logout', [UserController::class, 'logout']);
+Route::post('/logout', [UserController::class, 'logout'])->middleware('auth');
+
+// show a login form
+Route::get('/login', [UserController::class, 'login'])->name('login')->middleware('guest');
+
+// login the user
+Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 
 
 Route::get('/{non}', function () {

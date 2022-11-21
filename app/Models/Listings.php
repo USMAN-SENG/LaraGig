@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Listings extends Model
 {
@@ -11,6 +12,7 @@ class Listings extends Model
 
     protected $fillable = [
         'title',
+        'user_id',
         'logo',
         'tags',
         'company',
@@ -35,5 +37,10 @@ class Listings extends Model
                 ->orWhere('location', 'like', '%' . request('search') . '%');
             // when user search, it will check the word from multiple column. title,description , tags
         }
+    }
+
+    // Relationship with the users table , each list belong to 1 user
+    public function user(){
+        return $this->belongsTo(User::class,'user_id');
     }
 }
