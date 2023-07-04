@@ -1,9 +1,10 @@
 <div class="d-flex flex-column justify-content-center bg-danger    text-white">
   <h1 class="text-center mt-5">Lara<span class="text-black">Gigs</span></h1>
   <p class="text-center">Find or Post Laravel Jobs and Projects</p>
+  
   <div class="d-flex justify-content-center m-0 mb-5">
     <a href="/listings/create" class="btn btn-outline-light">
-      Sign Up To List a Gig
+      List a Gig
     </a>
   </div>
 </div>

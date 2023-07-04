@@ -25,7 +25,10 @@ use App\Http\Controllers\ListingsController;
 // destroy - Delete listing 
 
 Route::get('/', function () {
-    return view('welcome');
+
+    return redirect('/listings');
+
+    // return view('welcome');
 });
 
 Route::get('/about', function () {

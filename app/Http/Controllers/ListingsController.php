@@ -10,6 +10,13 @@ use Termwind\Components\Dd;
 
 class ListingsController extends Controller
 {
+
+    // public function dummyData()
+    // {
+    //     return ["name" => "usman"];
+    // }
+
+
     /**
      * Display a listing of the resource.
      *
